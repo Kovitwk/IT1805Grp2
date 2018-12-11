@@ -1,0 +1,82 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#clear {
+	height: 50px;
+}
+
+#workout1 {
+	background-color: grey;
+	height: 400px;
+}
+
+.workout1 {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	overflow: hidden;
+	font-size: 20px;
+	margin-left: 50px;
+	width: 1000px;
+}
+
+#workout2 {
+	background-color: dimgrey;
+	height: 400px;
+}
+
+.workout2 {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	overflow: hidden;
+	font-size: 20px;
+	margin-left: 50px;
+	width: 1000px;
+}
+
+#workout3 {
+	background-color: black;
+	height: 400px;
+}
+
+.workout3 {
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	overflow: hidden;
+	font-size: 20px;
+	margin-left: 50px;
+	width: 1000px;
+}
+
+#workout4 {
+	height: 1000px;
+	background-color: red;
+}
+
+.workout4 {
+	font-family: 'Roboto';
+	font-weight: bold;
+	font-size: 50px;
+	padding-top: 5%;
+	margin-left: 20%;
+}
+
+.video1 {
+	margin-top: -170px;
+	margin-right: 50px;
+	float: right;
+}
+
+.video2 {
+	margin-top: -150px;
+	margin-right: 50px;
+	float: right;
+	
+}
+
+.video3 {
+	margin-top: -215px;
+	margin-right: 50px;
+	float: right;
+}

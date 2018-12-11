@@ -12,7 +12,7 @@ def home(sportshome):
 
 
 @app.route("/<sportsavatar>")
-def avatar():
+def avatar(sportsavatar):
     return render_template("sportsavatar.html")
 
 
