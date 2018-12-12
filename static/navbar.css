@@ -1,8 +1,7 @@
 #navbar {
-	position: fixed;
 	top: 0;
-	width: 100%;
-	overflow: auto;
+    width:100%;
+   	position: fixed;
 }
 
 .container1 {
@@ -22,9 +21,9 @@ a {
 	color: black;
 }
 
-a:visited { 
-	text-decoration: none; 
-	color: black; 
+a:visited {
+	text-decoration: none;
+	color: black;
 }
 
 #brand {
@@ -45,26 +44,26 @@ a:visited {
 	background-color: black;
 }
 
-ul {
+#navbar ul {
     list-style-type: none;
 	padding: 0;
 	margin: 2px;
 	text-align: center;
 }
 
-li {
+#navbar li {
 	color: black;
 	display: inline;
 }
 
-li a {
+#navbar li a {
 	font-family: Roboto, sans-serif;
-	font-style: bold;
+	font-weight: bold;
 	padding: 5px;
 	font-size: 20px;
 }
 
-li a:hover {
+#navbar li a:hover {
     background-color: #111;
 	color: white;
 }

@@ -1,0 +1,61 @@
+body {
+	color: #0f1001;
+    font-family: "Monospace", Courier New;
+}
+
+#Desc {
+	font-size: 20px;
+	margin: 10px;
+}
+
+#Desc h3 {
+	font-size: 25px;
+	margin-top: 50px;
+
+}
+
+#Links {
+    color: darkred;!important;
+}
+
+#Links:hover{
+    color: darkcyan;!important;
+}
+
+#user_input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#user_input label {
+    font-size: 20px;
+}
+
+#user_input form {
+    border: 3px solid dimgray;
+    border-radius:10px;
+    padding: 30px;
+    margin-top:50px;
+    background-color: aliceblue;
+}
+
+.display_info ul {
+    list-style-type: cicle;
+
+}
+
+.number {
+    color: brown;
+}
+
+
+
+
+
+
+
+
+
+
