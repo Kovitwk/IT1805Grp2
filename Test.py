@@ -1,10 +1,17 @@
 from flask import *
-
+from flask_babel import *
 import shelve
 from Record import Record
 from AddRecordForm import *
 
 app = Flask(__name__)
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+babel = Babel(app)
+
+
+@babel.localeselector
+def get_locale():
+    return 'ms'
 
 
 @app.route("/")
@@ -61,7 +68,7 @@ def summary():
     dictionary = db['Records']
     db.close()
 
-    # convert dictionry to list
+    # convert dictionary to list
     list = []
     for key in dictionary:
         item = dictionary.get(key)

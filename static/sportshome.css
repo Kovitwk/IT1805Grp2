@@ -3,6 +3,10 @@ body {
 	padding: 0;
 }
 
+p {
+	max-width: 300px;
+}
+
 #smart1img {
 	float: right;
 	width: 50%;

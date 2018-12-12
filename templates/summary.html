@@ -1,4 +1,9 @@
 {% extends 'sportshealth.html' %}
+
+{% block header %}
+  <h1>{% block title %}Your health statistics!{% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
 <h1>These are your health statistics {{ name }}</h1>
     <table style="width:50%">

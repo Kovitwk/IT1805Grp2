@@ -1,0 +1,36 @@
+# Malay translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-12-13 01:14+0800\n"
+"PO-Revision-Date: 2018-12-13 01:17+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ms\n"
+"Language-Team: ms <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: templates/sportshome.html:33
+msgid "Why Smart"
+msgstr "Kenapa Pintar"
+
+#: templates/sportshome.html:34
+msgid "Being smart with your sports is the next best thing especially"
+msgstr "Menjadi pintar dengan sukan anda adalah perkara terbaik seterusnya"
+
+#: templates/sportshome.html:35
+msgid "with all the new technology being put into place with advancements"
+msgstr "dengan semua teknologi baru diletakkan dengan kemajuan"
+
+#: templates/sportshome.html:36
+msgid "of smart watches and fitness trackers"
+msgstr "jam tangan pintar dan penjejak kecergasan"
+
