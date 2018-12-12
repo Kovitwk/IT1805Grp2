@@ -1,0 +1,20 @@
+{% extends 'sportshealth.html' %}
+{% block content %}
+<h1>These are your health statistics {{ name }}</h1>
+    <table style="width:50%">
+        <tr>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>BMI</th>
+            <th>Fitness Level</th>
+        </tr>
+        {% for item in records %}
+        <tr>
+            <td>{{ item.get_height() }}</td>
+            <td>{{ item.get_weight() }}</td>
+            <td>{{  }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

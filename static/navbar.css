@@ -59,7 +59,8 @@ li {
 
 li a {
 	font-family: Roboto, sans-serif;
-	padding: 2px;
+	font-style: bold;
+	padding: 5px;
 	font-size: 20px;
 }
 
