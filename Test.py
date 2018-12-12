@@ -1,33 +1,35 @@
 from flask import *
+from simData import *
 
 import shelve
 from Record import Record
 from AddRecordForm import *
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'iufnaofiLKE'
 
 
 @app.route("/")
 def main():
-    return render_template("sportshome.html")
+    return render_template("SmartLivingHomepage.html")
 
 
-@app.route("/sportshome")
+@app.route("/sportshome.html")
 def home():
     return render_template("sportshome.html")
 
 
-@app.route("/sportsavatar")
+@app.route("/sportsavatar.html")
 def avatar():
-    return render_template("sportsavatar.html")
+    return render_template("")
 
 
-@app.route("/sportsworkout")
+@app.route("/sportsworkout.html")
 def workout():
     return render_template("sportsworkout.html")
 
 
-@app.route('/record', methods=['GET', 'POST'])
+@app.route('/record.html', methods=['GET', 'POST'])
 def record():
     form = AddRecordForm(request.form)
     print('The method is ' + request.method)
@@ -51,10 +53,10 @@ def record():
 
             return redirect(url_for('summary.html'))
 
-    return render_template('record.html', form=form)
+    return render_template('/record.html', form=form)
 
 
-@app.route('/summary')
+@app.route('/summary.html')
 def summary():
     dictionary = {}
     db = shelve.open('storage.db', 'r')
@@ -69,6 +71,15 @@ def summary():
         # print("here:", user.get_firstname())
         list.append(item)
     return render_template('summary.html', records=list, count=len(list))
+
+
+@app.route('/Sim.html', methods=['GET', 'POST'])
+def sim():
+    calc = simData()
+    if request.method == 'GET':
+        return render_template("Sim.html", calc=calc)
+    elif request.method == 'POST':
+        return render_template("SimResults.html", calc=calc)
 
 
 if __name__ == "__main__":
