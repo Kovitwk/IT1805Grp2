@@ -1,4 +1,4 @@
-from flask import *
+from flask import Flask, render_template, request, redirect, url_for
 from flask_babel import *
 import shelve
 from Record import Record
@@ -44,19 +44,20 @@ def record():
 
         else:
             recordList = {}
-            db = shelve.open('storage.db', 'c')
+            db = shelve.open('storage', 'c')
 
             try:
                 recordList = db['Records']
 
             except:
                 print("failed to open database")
-            new_record = Record(form.height.data, form.weight.data)
-            recordList[new_record.get_height()] = new_record
+            new_record = Record(form.height.data, form.weight.data, form.id.data)
+            recordList[form.id.data] = new_record
             db['Records'] = recordList
+            print(db['Records'])
             db.close()
 
-            return redirect(url_for('summary.html'))
+            return redirect(url_for('summary'))
 
     return render_template('record.html', form=form)
 
@@ -64,7 +65,7 @@ def record():
 @app.route('/summary')
 def summary():
     dictionary = {}
-    db = shelve.open('storage.db', 'r')
+    db = shelve.open('storage', 'c')
     dictionary = db['Records']
     db.close()
 
@@ -72,8 +73,6 @@ def summary():
     list = []
     for key in dictionary:
         item = dictionary.get(key)
-        # print("here: ", user.get_userID())
-        # print("here:", user.get_firstname())
         list.append(item)
     return render_template('summary.html', records=list, count=len(list))
 

@@ -2,6 +2,7 @@
 {% block content %}
 <h2>Record your weight and height</h2>
 <form method="POST" action="">
+    <div>{{ form.id.label }}: {{ form.id() }}</div>
     <div>{{ form.height.label }}: {{ form.height() }}</div>
     <div>{{ form.weight.label }}: {{ form.weight() }}</div>
     <div>{{ form.submit }}</div>
