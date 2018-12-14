@@ -11,7 +11,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'en'
+    return 'ms'
 
 
 @app.route("/")

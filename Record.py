@@ -1,6 +1,3 @@
-import datetime
-
-
 class Record:
     def __init__(self, height, weight, id):
         self.__height = height
