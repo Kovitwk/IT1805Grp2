@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, flash, redirect, url_for, session, render_template
 from flask_babel import *
 import shelve
 from Record import Record
@@ -74,8 +74,9 @@ def summary():
     for key in dictionary:
         item = dictionary.get(key)
         list.append(item)
+
     return render_template('summary.html', records=list, count=len(list))
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port='80')

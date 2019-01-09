@@ -1,0 +1,17 @@
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+     <p>
+        {{ form.id.label }}<br>
+        {{ form.id }}
+    </p>
+    <p>
+        {{ form.height.label }}<br>
+        {{ form.height }}
+    </p>
+    <p>
+        {{ form.weight.label }}<br>
+        {{ form.weight}}
+    </p>
+
+    <p>{{ form.submit }}</p>
+</form>
