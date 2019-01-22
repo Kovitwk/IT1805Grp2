@@ -1,10 +1,34 @@
 {% extends 'sportshealth.html' %}
+
+{% block title %}Recording for {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link type="text/css" rel="stylesheet" href="/static/record.css">
+{% endblock %}
+
 {% block content %}
-<h2>Record your weight and height</h2>
-<form method="POST" action="">
-    <div>{{ form.id.label }}: {{ form.id() }}</div>
-    <div>{{ form.height.label }}: {{ form.height() }}</div>
-    <div>{{ form.weight.label }}: {{ form.weight() }}</div>
-    <div>{{ form.submit }}</div>
-</form>
+<div id="recordform">
+    <h2>Record your weight and height</h2>
+    <form method="POST" action="">
+        <div>{{ form.heightconvert.label }}: {{ form.heightconvert() }}</div>
+        <div>{{ form.weightconvert.label }}: {{ form.weightconvert() }}</div>
+        <button type="submit" name="btn" value="Convert">Convert</button>
+    </form>
+    <div id="flash">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h3>{{ message }}</h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form method="POST" action="">
+        <div>{{ form.id.label }}: {{ form.id() }}</div>
+        <div>{{ form.height.label }}: {{ form.height() }}</div>
+        <div>{{ form.weight.label }}: {{ form.weight() }}</div>
+        <button type="submit" name="btn" value="Submit">Update/Add</button>
+    </form>
+</div>
 {% endblock %}

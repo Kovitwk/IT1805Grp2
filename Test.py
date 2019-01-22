@@ -1,12 +1,15 @@
-from flask import Flask, flash, redirect, url_for, session, render_template
+from flask import Flask, flash, redirect, url_for, session, render_template, Session
 from flask_babel import *
 import shelve
 from Record import Record
+from Convert import Convert
+from Converter import *
 from AddRecordForm import *
 
 app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
+app.secret_key = 'Do not tell anyone'
 
 
 @babel.localeselector
@@ -37,12 +40,19 @@ def workout():
 @app.route('/record', methods=['GET', 'POST'])
 def record():
     form = AddRecordForm(request.form)
+    form1 = Converter(request.form)
     print('The method is ' + request.method)
+
     if request.method == 'POST':
         if form.validate() == 0:
             print('All fields are required.')
 
-        else:
+        if request.form["btn"] == "Convert":
+            convert = Convert(form1.heightconvert.data, form1.weightconvert.data)
+            flash('%d cm is %.2f m' % (form1.heightconvert.data, convert.get_heightc()))
+            flash('%d lbs is %.2f kg' % (form1.weightconvert.data, convert.get_weightc()))
+
+        elif request.form["btn"] == "Submit":
             recordList = {}
             db = shelve.open('storage', 'c')
 
@@ -51,6 +61,7 @@ def record():
 
             except:
                 print("failed to open database")
+
             new_record = Record(form.height.data, form.weight.data, form.id.data)
             recordList[form.id.data] = new_record
             db['Records'] = recordList
@@ -69,7 +80,6 @@ def summary():
     dictionary = db['Records']
     db.close()
 
-    # convert dictionary to list
     list = []
     for key in dictionary:
         item = dictionary.get(key)
@@ -79,4 +89,4 @@ def summary():
 
 
 if __name__ == "__main__":
-    app.run(port='80')
+    app.run(debug=True)
