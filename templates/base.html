@@ -1,0 +1,60 @@
+<!doctype html>
+<head>
+<title>{% block title %}{% endblock %} - CompanyName</title>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+	<link href='navbar.css' rel='stylesheet' type='text/css'>
+</head>
+	<div id="navbar">
+		<div class="container1">
+              {% if session['id'] %}
+			<p id="avatar">
+				<a id="Joshua" href="ProfilePage.html"><img src="avatar1.png" id="avatar1"></a>
+			</p>
+                {% else %}
+             <p id="avatar">
+				<a id="Joshua" href="login.html"><img src="avatar1.png" id="avatar1"></a>
+			</p>
+			{% endif %}
+		</div>
+		<div class="container2">
+			<a href="ProfilePage.html" id="brand">Our Company Logo here</a>
+			<ul>
+				<li><a id="Azim" href="living.html">Smart Living</a></li>
+				<li><a href="sportshome">Sports Living</a></li>
+				<li><a id="Syafiq" href="shop.html">Shops</a></li>
+                <li><a id="Kovi" href="summary">Sports Health</a></li>
+			</ul>
+          <ul>
+    {% if session['id'] %}
+      <li><span>{{ session['user_name'] }}</span>
+      <li><a href="{{ url_for('logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('register') }}">Register</a>
+      <li><a href="{{ url_for('login') }}">Log In</a>
+    {% endif %}
+  </ul>
+		</div>
+	</div>
+
+
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

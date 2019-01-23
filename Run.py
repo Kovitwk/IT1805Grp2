@@ -1,5 +1,6 @@
-from flask import Flask, flash, redirect, url_for, session, render_template, Session
+from flask import Flask, flash, redirect, url_for, session, render_template, escape
 from flask_babel import *
+from flask_babelex import Babel
 import shelve
 from Record import Record
 from Convert import Convert
@@ -9,22 +10,29 @@ from AddRecordForm import *
 app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
-app.secret_key = 'Do not tell anyone'
-
-
-@babel.localeselector
-def get_locale():
-    return 'en'
+app.secret_key = 'Test123456543$2313fd$@#@%^21dz'
 
 
 @app.route("/")
 def main():
+    if "username" in session:
+        return"Logged in as %s" % escape(session["username"])
+
     return render_template("sportshome.html")
 
 
-@app.route("/sportshome")
+@app.route("/sportshome", methods=['POST', 'GET'])
 def home():
-    return render_template("sportshome.html")
+    if request.method == 'POST':
+        if request.form['btn'] == 'en':
+            @babel.localeselector
+            def get_locale():
+                return render_template("sportshome.html"), 'en'
+
+        if request.form['btn'] == 'ms':
+            @babel.localeselector
+            def get_locale():
+                return render_template("sportshome.html"), 'ms'
 
 
 @app.route("/sportsavatar")
@@ -54,7 +62,7 @@ def record():
 
         elif request.form["btn"] == "Submit":
             recordList = {}
-            db = shelve.open('storage', 'c')
+            db = shelve.open('fitness', 'c')
 
             try:
                 recordList = db['Records']
@@ -76,7 +84,7 @@ def record():
 @app.route('/summary')
 def summary():
     dictionary = {}
-    db = shelve.open('storage', 'c')
+    db = shelve.open('fitness', 'c')
     dictionary = db['Records']
     db.close()
 

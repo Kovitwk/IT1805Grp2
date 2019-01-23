@@ -10,7 +10,7 @@ form {
 }
 
 #flash {
-    min-height: 200px;
+    min-height: 100px;
     min-width: 100%;
     border: 1px solid black;
 }
