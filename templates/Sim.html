@@ -73,15 +73,15 @@
     </div>
     <div id="tips">
         <div >
-            <h2>Tips for saving electricity</h2>
-            {% if replaceInc %}<p style="border-left:1px solid black">Switch out your {{ inc }} incandescent light bulb(s) for either an LED or CFL one.</p>{% endif %}
-            {% if replaceCfl %}<p style="border-left:1px solid black">CFL light bulbs are good but for maximum energy-saving, switch to LED ones.</p>{% endif %}
-            {% if saveSmartE %}<p style="border-left:1px solid black">Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+            <h3>Tips for saving electricity</h3>
+            {% if replaceInc %}<p>Incandescent light bulbs use up more than 3x as much energy as the other light bulbs. Switch them out as soon as possible.</p>{% endif %}
+            {% if replaceCfl %}<p>CFL light bulbs are good but for maximum energy-saving, switch to LED ones.</p>{% endif %}
+            {% if saveSmartE %}<p>Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
         </div>
         <div>
-            <h2>Tips for saving water</h2>
-            {% if replaceOldorConv %}<p style="border-left:1px solid black">Replace your {{ toitype }} toilets for High-Efficiency ones.</p>{% endif %}
-            {% if saveSmartW %}<p style="border-left:1px solid black">Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+            <h3>Tips for saving water</h3>
+            {% if replaceOldorConv %}<p>Replace your {{ toitype }} toilets for High-Efficiency ones.</p>{% endif %}
+            {% if saveSmartW %}<p>Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
         </div>
         <br style="clear:both;"/>
     </div>
@@ -110,6 +110,7 @@ function openTimeFrames(evt, timeframe) {
 document.getElementById("defaultOpen").click();
 document.getElementById("results").scrollIntoView();
 {% endif %}
+
 </script>
 <footer class="py-5 bg-dark">
     <div class="container">

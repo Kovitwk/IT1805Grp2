@@ -91,13 +91,13 @@ body {
     overflow: auto;
     display: flex;
 }
-#tips h2 {
+#tips h3 {
     border-bottom:2px solid black;
     font-weight: bold;
 }
 
 #tips p {
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 30px;
     background-color: ghostwhite;
 }
