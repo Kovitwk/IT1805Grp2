@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Posts{% endblock %}</h1>
+  {% if session['id'] %}
+    <a class="action" href="{{ url_for('create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<form method="post" action="/login">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Log In">
+<p>user</p>
+<p>are you diabetic?</p>
+<select>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<p>How big is your apartment</p>
+<select>
+    <option value="1234">1234 sq feet </option>
+    <option value="5678">5678 sq feet </option>
+</select>
+</br>
+
+<button value="submit">Update Data</button>
+</form>
+{% endblock %}

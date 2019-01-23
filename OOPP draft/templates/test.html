@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+	 <link href="css/full-slider.css" rel="stylesheet">
+	<link href="css/style1.css" rel="stylesheet" />
+	
+	<script>
+	document.addEventListener("DOMContentLoaded",docisready);
+	
+	function docisready(){
+		var normal =localStorage.getItem("normal");
+		if(normal==0){
+		document.getElementById("test").innerHTML="Profile";
+		document.getElementById('test').href="http://www.google.com";
+		}
+			if(normal==1){
+		document.getElementById("test").innerHTML="Admin";
+		document.getElementById('test').href="adminpage.html";
+			}
+		else{
+		}
+	}
+	</script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="coniner fluid">
+				
+				<div class="navbar-header">
+					
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-main">
+						<span class="sr-only">Toggle navigation </span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					
+					<a class="navbar-brand" href="#"><img src="img/Logo2.png" height="54" width="210"></a>
+					
+				</div>
+					
+					<div class="collapse navbar-collapse" id="navbar-collapse-main">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a class="active" href="">Home</a></li>
+							<li><a id="test" href="">Login /Sign Up</a></li>
+							<li><a href="">Events</a></li>
+							<li><a href="donation.html">Donate</a></li>
+						</ul>
+					</div>
+			</div>
+	</nav>
+
+	<div id="home">
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active" style="background-image: url('muscle.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <div class="landing-text"><h1>Healthy diet</h1></div>
+              <button class="btn"><a href="#">More Info</a></button>
+            </div>
+          </div>
+          <!-- Slide Two - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('diet plan.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+				<div class="landing-text">
+				<h1>Light and easy diet</h1>
+				</div>
+				<button class="btn"><a href="#">More Info</a></button>
+            </div>
+          </div>
+          <!-- Slide Three - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('lightdiet.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+				<div class="landing-text">
+				<h1>Time for Power Lifting</h1>
+				</div>
+                <button class="btn"><a href="#">More Info</a></button>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </header>
+
+	</div>
+	
+	<div class="padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<img src="img/calendar.png">
+				</div>
+				<div class="col-sm-6 text-center" id="events">
+					<h2>Upcoming Events</h2>
+						<a href="#"><p>Healthy Diet</p></a>
+							<p class="date">30 August 2018 /8am</p>
+						<a href="#"><p>Palawan Beach Run</p></a>
+							<p class="date">17 September 2018 /7am</p>
+						<a href="#"><p>Changi Beach Clean Up</p></a>
+							<p class="date">1 November 2018 /12pm</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="fixed">
+		<div class="padding">
+			<div class="container">
+				<div class="row">
+					<div class="background">
+					<div class="col-sm-6">
+						<p id="text">Nanyang Polytechnic</p>
+						<p id="text">Home to the TryHardRecyclers</p>
+						<button class="btn"><a href="moreabtus.html"><p id="button">Find out more</p></a></button>
+					</div>
+					</div>
+					<div class="col-sm-6">
+						<img src="img/nyp.jpg">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="container-fluid text-center">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3>Contact Us</h3>
+				</br>
+				<p>Tel no: +6592345678</p>
+				<p>Email: Try_hardRecyclers@Recyclebetter.com</p>
+			</div>
+			<div class="col-sm-4">
+				<h3>Follow Us</h3>
+				<a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+				<a href="https://twitter.com/?lang=en" class="fa fa-twitter"></a>
+				<a href="https://www.instagram.com/?hl=en" class="fa fa-instagram"></a>
+				<a href="https://www.youtube.com/" class="fa fa-youtube"></a>
+			</div>
+			<div class="col-sm-4">
+				<img src="img/Logo2.png" class="icon">
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

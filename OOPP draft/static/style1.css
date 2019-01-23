@@ -1,0 +1,232 @@
+﻿html, body{
+		height:100%;
+		width:100%;
+}
+
+
+.navbar{
+	background-color:#006E6D;
+	padding:0 0;
+	font-size:1.5em;
+	padding-right:10px;
+}
+
+.navbar-brand{
+	min-height:55px;
+	padding:0 15px;
+}
+
+.navbar-default .navbar-nav li a{
+	color:#D5D5D5;
+}
+
+.navbar-default .navbar-nav li a:hover,.navbar-default .navbar-nav li a:active{
+	color:#FFF;
+}
+
+#home2{
+	background: url("https://images6.alphacoders.com/436/436927.jpg") no-repeat center center fixed;
+	display:table;
+	height:100%;
+	position:relative;
+	width:100%;
+	background-size:cover;
+}
+
+#home3{
+	background: url("https://images2.alphacoders.com/576/576485.jpg") no-repeat center center fixed;
+	display:table;
+	height:100%;
+	position:relative;
+	width:100%;
+	background-size:cover;
+}
+
+#home{
+	background: url("https://images3.alphacoders.com/112/112347.jpg") no-repeat center center fixed;
+	display:table;
+	height:100%;
+	position:relative;
+	width:100%;
+	background-size:cover;
+}
+
+.landing-text {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+}
+
+.landing-text h1{
+		font-size:500%;
+		font-weight:700%;
+		color:black;
+		background-color:lightblue;
+		opacity:0.8;
+		font-family:'Comic Sans MS', cursive, sans-serif;
+}
+
+.btn{
+	border-radius:9px;
+	font-family:'Oswald', sans-serif;
+	color:#036A81;
+	font-size:135%;
+	padding:10px 20px;
+	border: solid #306A81 3px;
+	text-transform:uppercase;
+}
+
+.btn:hover{
+	color:#FFF;
+	border:solid #FFF 3px;
+}
+
+p{
+	line-height:210%;
+	text-align:center;
+}
+.padding{
+	padding:80px 0;
+}
+
+.padding img{
+	width:100%;
+}
+
+#events{
+	padding-top:50px;
+}
+
+#events h2{
+	font-weight:bold;
+	font-size:250%;
+	line-height:210%;
+	text-align:center;
+	font-family:sans-serif;
+	border-radius:10px;
+	border:solid #306A81 2px;
+}
+
+#events p{
+	font-family:'Comic Sans MS', cursive, sans-serif;
+	font-size:165%;
+}
+
+#events a{
+	font-size:120%;
+	color:#E8910C;
+	font-family:'Comic Sans MS', cursive, sans-serif;
+	font-weight:bold;
+}
+
+#events a p{
+	text-align:left;
+}
+
+#events a:hover{
+	text-decoration:none;
+}
+
+#events a:visited{
+	text-decoration:none;
+}
+
+.date{
+	text-align:right;
+}
+
+#fixed{
+	background: url(https://images4.alphacoders.com/232/232854.jpg) no-repeat center fixed;
+	display:table;
+	height:45%;
+	position:relative;
+	width:100%;
+	background-size:cover;
+}
+
+#fixed2{
+	background: url("https://images4.alphacoders.com/378/37864.jpg") no-repeat center fixed;
+	display:table;
+	height:45%;
+	position:relative;
+	width:100%;
+	background-size:cover;
+}
+
+footer {
+	width:100%;
+	background-color:#006E6D;
+	padding-bottom:2%;
+	color:#FFF;
+}
+
+.fa{
+	padding:15px;
+	padding-top:10px;
+	font-size:25px;
+	color:#FFF;
+}
+
+.fa:hover{
+	color:#D5D5D5;
+	text-decoration:none;
+}
+
+.icon{
+	padding-top:10px;
+	min-width:200px;
+	min-height:100px;
+}
+
+footer p{
+	text-align:left;
+	padding-left:200px;
+}
+
+.container p{
+	font-size:180%;
+	text-align:left;
+	padding-top:20px;
+	font-family:'Comic Sans MS', cursive, sans-serif;
+	font-weight:bold;
+}
+
+
+#text{
+ color:white;	
+}
+
+@media(max-width:786px){
+	.landing-text h1{
+		font-size:300%;
+	}
+	.fa{
+		font-size:20px;
+		padding:10px;
+	}
+	.icon{
+		padding-top:5%;
+		max-width:100px;
+	}
+	.content h1{
+		font-size:250%;
+	padding:7px 15px;
+	}
+	p{
+	font-size:100%;
+	line-height:160%;
+	}
+	footer p{
+	text-align:left;
+	padding-left:0px;
+	}
+}
+
+
+
+
+
+
+
+
+
