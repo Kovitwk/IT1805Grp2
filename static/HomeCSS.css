@@ -1,0 +1,151 @@
+body {
+	color: #000000;
+	font-family: Roboto, sans-serif;
+    background-color: #f7f7f7;
+}
+
+#Desc {
+	font-size: 20px;
+	margin: 10px;
+}
+
+#Desc h3 {
+	font-size: 25px;
+	margin-top: 50px;
+}
+
+#aaLinks {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+}
+
+#aaLinks:hover{
+    color: white;
+    text-decoration: none;
+    background-color: black;
+    transition: 0.3s
+}
+#instructions {
+    color: gray;
+    text-align:center;
+    top:40px;
+    font-weight: lighter;
+    font-family: Trebuchet MS;
+    font-size: 14px;
+}
+
+#user_input {
+    text-align:center;
+    margin-top: 60px;
+    padding-left:240px; /* i swear on my life i cant get this div to center on the page any other way */
+    font-weight: bold;
+    display: flex;
+}
+
+#user_input form {
+    padding: 30px;
+    margin-top:50px;
+}
+
+.number {
+    color: brown;
+}
+
+#submit {
+    background-color: white;
+    border-color: #000000;
+    color: black;
+    box-shadow: 1px 1px 5px gray;
+}
+
+#submit:hover {
+    background-color: black;!important;
+    color: white;!important;
+}
+
+#error {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+	font-family: Roboto, sans-serif;
+    margin-left: 20px;
+}
+
+
+#container {
+    max-width: 1200px;
+    height: 1200px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 2px 2px 10px gray;
+    border: 2px solid black;
+    border-bottom: none;
+}
+
+#tips {
+    text-align: center;
+    font-size: 20px;
+    margin: 20px auto 20px auto;
+    max-width: 1000px;
+    overflow: auto;
+    display: flex;
+}
+#tips h2 {
+    border-bottom:2px solid black;
+    font-weight: bold;
+}
+
+#tips p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    background-color: ghostwhite;
+}
+#results {
+    text-align: center;
+    font-size: 20px;
+    width: 700px;
+    margin: auto;
+}
+
+.tab {
+    overflow: hidden;
+    float: none;
+    display: inline-block;
+    padding-top:30px;
+    border-bottom: 2px solid gray;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-weight: bold;
+    border:none;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    border-bottom: 2px solid black;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    border-bottom: 2px solid black;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: none;
+    animation: fadeEffect 1s;
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+

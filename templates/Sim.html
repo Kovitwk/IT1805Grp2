@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/HomeCSS.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='../static/navbar.css'>
+
+    <meta charset="UTF-8">
+    <title>House Simulator</title>
+    <div id="navbar">
+		<div class="container1">
+			<p id="avatar">
+				<a href=""><img src="../static/avatar1.png" id="avatar1"></a>
+			</p>
+		</div>
+		<div class="container2">
+			<a href="/" id="brand">Our Company Logo here</a>
+			<ul>
+				<li><a href="Sim.html">Home Simulator</a></li>
+				<li><a href="sportshome">Sports Living</a></li>
+				<li><a id="Syafiq" href="shop.html">Shops</a></li>
+				<li><a href="/templates/sportshealth.html">Sports Health</a></li>
+			</ul>
+		</div>
+    </div>
+</head>
+
+<body>
+<div id="container">
+    <div id="user_input">
+        <form method="POST">
+            <div id="instructions"><p>Fill up the form to calculate your electricity and water usage in your home.</p></div>
+            <div style="text-align: center;"><label for="lb">How many light bulbs and of which type do you have at home?</label></div>
+            <div class="form-row">
+                <div class="form-group col-xs-1">{{ calc.led.label}} {{ calc.led(placeholder=0, class_="form-control") }}</div>
+                <div class="form-group col-xs-1">{{ calc.cfl.label}} {{ calc.cfl(placeholder=0, class_="form-control") }}</div>
+                <div class="form-group col-xs-1">{{ calc.inc.label}} {{ calc.inc(placeholder=0, class_="form-control") }}</div>
+            </div>
+            <br>
+            <div class="form-group">
+            {{ calc.toish.label }} {{ calc.toish(class_='form-control', placeholder=0) }}
+            <br>
+            {{ calc.toitype.label }} {{ calc.toitype(class_='form-control') }}
+            </div>
+            <br>
+            <div style="text-align:center;">{{ calc.submit(id_='submit', class_="btn btn-primary") }}
+            {% if error %}
+            <span id="error">{{ error }}</span>
+            {% endif %}
+            </div>
+        </form>
+    </div>
+    {% if finalWatt %}
+    <div id="results">
+        <div class="tab">
+            <button class="tablinks" onclick="openTimeFrames(event, 'Daily')">Daily</button>
+            <button class="tablinks" id='defaultOpen' onclick="openTimeFrames(event, 'Monthly')">Monthly</button>
+            <button class="tablinks" onclick="openTimeFrames(event, 'Yearly')">Yearly</button>
+        </div>
+        <div id="Daily" class="tabcontent">
+            {% if dailyPrice %}<p>You spend <span class="number">${{ dailyPrice }}</span> on electricity and use <span class="number">{{ dailyWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if dailyCubmtrPrice %}<p>You spend <span class="number">${{ dailyCubmtrPrice }}</span> on water and use <span class="number">{{ dailyCubmtr }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+        <div id="Monthly" class="tabcontent">
+            {% if finalPrice %}<p>You spend <span class="number">${{ finalPrice }}</span> on electricity and use <span class="number">{{ finalWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if cubmtrPrice %}<p>You spend <span class="number">${{ cubmtrPrice }}</span> on water and use <span class="number">{{ cubmtrperday }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+        <div id="Yearly" class="tabcontent">
+            {% if yearlyPrice %}<p>You spend <span class="number">${{ yearlyPrice }}</span> on electricity and use <span class="number">{{ yearlyWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if yearlyCubmtrPrice %}<p>You spend <span class="number">${{ yearlyCubmtrPrice }}</span> on water and use <span class="number">{{ yearlyCubmtr }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+    </div>
+    <div id="tips">
+        <div >
+            <h2>Tips for saving electricity</h2>
+            {% if replaceInc %}<p style="border-left:1px solid black">Switch out your {{ inc }} incandescent light bulb(s) for either an LED or CFL one.</p>{% endif %}
+            {% if replaceCfl %}<p style="border-left:1px solid black">CFL light bulbs are good but for maximum energy-saving, switch to LED ones.</p>{% endif %}
+            {% if saveSmartE %}<p style="border-left:1px solid black">Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+        </div>
+        <div>
+            <h2>Tips for saving water</h2>
+            {% if replaceOldorConv %}<p style="border-left:1px solid black">Replace your {{ toitype }} toilets for High-Efficiency ones.</p>{% endif %}
+            {% if saveSmartW %}<p style="border-left:1px solid black">Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+        </div>
+        <br style="clear:both;"/>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Functions -->
+<script>
+function openTimeFrames(evt, timeframe) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(timeframe).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<script>
+{% if openTab %}
+document.getElementById("defaultOpen").click();
+document.getElementById("results").scrollIntoView();
+{% endif %}
+</script>
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white"></p>
+    </div>
+</footer>
+</body>
+</html>
