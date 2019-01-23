@@ -2,6 +2,7 @@
 	top: 0;
     width:100%;
    	position: fixed;
+	display: block;
 }
 
 .container1 {

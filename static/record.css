@@ -1,0 +1,16 @@
+#recordform {
+    display: block;
+    text-align: center;
+}
+
+form {
+    display: inline-block;
+    margin: auto;
+    text-align: left;
+}
+
+#flash {
+    min-height: 100px;
+    min-width: 100%;
+    border: 1px solid black;
+}

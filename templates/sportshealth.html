@@ -1,10 +1,36 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} Sports Health</title>
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+	<link type="text/css" rel="stylesheet" href="/static/sportshome.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+	<link href='/static/navbar.css' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="/static/record.css">
+    <link type="text/css" rel="stylesheet" href="/static/summary.css">
+    {% endblock %}
+</head>
 
+<body>
+<div id="navbar">
+    <div class="container1">
+        <p id="avatar">
+            <a id="Joshua" href="ProfilePage.html"><img src="/static/avatar1.png" id="avatar1"></a>
+        </p>
+    </div>
+    <div class="container2">
+        <a href="homepage.html" id="brand">Company Logo</a>
+        <ul>
+            <li><a id="Azim" href="Sim.html">Smart Living</a></li>
+            <li><a id="Kovi" href="sportshome">Sports Living</a></li>
+            <li><a id="Syafiq" href="shop.html">Shops</a></li>
+            <li><a id="Kovi1" href="summary">Your Health Stats</a></li>
+        </ul>
+    </div>
+</div>
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
 </section>
-
+</body>
