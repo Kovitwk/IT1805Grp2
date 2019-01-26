@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_babel import *
 from simData import *
 from Record import Record
 from AddRecordForm import *
+from dietRecipe import *
 import shelve
 import AdaptedSimulationCode as simCode
 
@@ -79,6 +80,42 @@ def summary():
         list.append(item)
     return render_template('summary.html', records=list, count=len(list))
 
+@app.route('/diet')
+def diet():
+    posts = get_recipes()
+    return render_template('diet.html', posts=posts)
+
+
+@app.route('/dietUpdate', methods=('GET', 'POST'))
+def update():
+    recipeBlock = createRecipe(request.form)
+    if request.method == 'POST':
+        if request.form['form_submit'] == 'delete':
+            delete_recipe()
+            return redirect(url_for('diet'))
+    else:
+        delete = True
+        return render_template('dietUpdate.html', recipeBlock=recipeBlock, delete=delete)
+
+@app.route('/<string:id>/delete', methods=('GET', 'POST'))
+def delete(id):
+    delete_recipe(id)
+    posts = get_recipes()
+    return render_template('index.html', posts=posts)
+
+
+@app.route('/dietCreate', methods=('GET', 'POST'))
+def create():
+    recipeBlock = createRecipe(request.form)
+    if request.method == "POST":
+        if recipeBlock.validate():
+            create_recipe(recipeBlock.title.data, recipeBlock.body.data, recipeBlock.image.data)
+            return redirect(url_for('diet'))
+        else:
+            print('Not valid')
+            return redirect(url_for('diet'))
+    else:
+        return render_template('dietCreate.html', recipeBlock=recipeBlock)
 
 @app.route('/Sim.html', methods=['GET', 'POST'])
 def sim():

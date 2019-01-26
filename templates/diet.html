@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dieting Tips</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/HomeCSS.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='../static/navbar.css'>
+
+  </head>
+
+  <body>
+    <div id="navbar">
+		<div class="container1">
+			<p id="avatar">
+				<a id="Joshua" href=""><img src="../static/avatar1.png" id="avatar1"></a>
+			</p>
+		</div>
+		<div class="container2">
+			<a href="/" id="brand">Company Logo</a>
+			<ul>
+				<li><a href="Sim.html">Smart Living</a></li>
+				<li><a href="sportshome">Sports Living</a></li>
+				<li><a id="Syafiq" href="shop.html">Shops</a></li>
+				<li><a href="summary">Your Health Stats</a></li>
+			</ul>
+		</div>
+    </div>
+    <div id="container"><br>
+    <h3>Dieting "Tips"</h3>
+    <p><a class="action" href="dietCreate">New</a></p>
+
+    {% for post in posts %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ post.title }} <img src="{{ post.image }}"/></h1>
+        </div>
+          <a class="action" href="dietUpdate">Edit</a>
+      </header>
+      <p class="body">{{ post.body }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+<footer class="py-5 bg-dark">
+<div class="container">
+<p class="m-0 text-center text-white"></p>
+</div>
+</footer>
+  </body>
+</html>
