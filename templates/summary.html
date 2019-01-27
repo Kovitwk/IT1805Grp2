@@ -17,6 +17,7 @@
             <th>Weight</th>
             <th>BMI</th>
             <th>Fitness Level</th>
+            <th>Date</th>
         </tr>
         {% for item in records %}
         <tr>
@@ -25,11 +26,16 @@
             <td>{{ item.get_weight() }}</td>
             <td>{{ item.get_bmi() }}</td>
             <td>{{ item.get_fitness_level() }}</td>
+            <td>{{ item.get_date() }}</td>
             {% endfor %}
     </table>
 </div>
 
 <div id="recordbutton">
     <a href="record">Record your Stats</a>
+</div>
+
+<div id="workouttips">
+    <a href="sportsworkout">Workout Tips</a>
 </div>
 {% endblock %}

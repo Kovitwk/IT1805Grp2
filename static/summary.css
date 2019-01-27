@@ -1,22 +1,77 @@
 body {
-	background-color: grey;
+    background-image: url(/static/statsbg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: black;
 }
 
 #content {
-    margin: 0 auto;
+    background-color: whitesmoke;
     width: 80%;
     height: 80%;
 	text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-family: sans-serif;
+    margin: 25% auto 20px auto;
 }
 
 table {
+    width: 40%;
+    height: 60%;
     display: inline-block;
-    margin: auto;
-    border: 1px solid black;
+    border: 1px solid dimgrey;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 20px;
+    font-family: Helvetica, sans-serif;
 }
 
 #recordbutton {
-    background-color: black;
-    color: white;
+    display: inline;
+    background-color: whitesmoke;
+    margin-left: 40%;
+    padding: 5px 10px 5px 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 20px;
     text-align: center;
+    font-family: Helvetica, sans-serif;
+}
+
+#recordbutton:hover a{
+    color: white;
+}
+
+#recordbutton:hover {
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    box-shadow: #1d2124;
+    background-color: black;
+}
+
+#workouttips {
+    padding: 5px 10px 5px 10px;
+    display: inline;
+    background-color: whitesmoke;
+    margin-left: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+}
+
+#workouttips:hover a{
+    color: white;
+}
+
+#workouttips:hover {
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    box-shadow: #1d2124;
+    background-color: black;
 }

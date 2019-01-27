@@ -49,34 +49,20 @@ body {
 	width: 1000px;
 }
 
-#workout4 {
-	height: 1000px;
-	background-color: red;
-}
-
-.workout4 {
-	font-family: 'Roboto';
-	font-weight: bold;
-	font-size: 50px;
-	padding-top: 5%;
-	margin-left: 20%;
-}
-
 .video1 {
-	margin-top: -170px;
-	margin-right: 50px;
-	float: right;
+    position: relative;
+	margin-top: -130px;
+    padding-left: 65%;
 }
 
 .video2 {
-	margin-top: -150px;
-	margin-right: 50px;
-	float: right;
-	
+    position: relative;
+	margin-top: -130px;
+    padding-left: 65%;
 }
 
 .video3 {
-	margin-top: -215px;
-	margin-right: 50px;
-	float: right;
+    position: relative;
+	margin-top: -180px;
+	padding-left: 65%;
 }
