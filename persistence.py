@@ -53,6 +53,7 @@ class Blog:
         self.body = ''
         self.created = ''
 
+
 users = shelve.open('user')
 blogs = shelve.open('blog')
 
@@ -123,6 +124,3 @@ def init_db():
     for i in range(5):
         create_user('user'+str(i), 'pass'+str(i))
         create_blog('user'+str(i), 'title'+str(i), 'body'+str(i))
-
-
-

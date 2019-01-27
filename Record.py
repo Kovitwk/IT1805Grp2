@@ -1,9 +1,13 @@
 class Record:
-    def __init__(self, height, weight):
+    def __init__(self, height, weight, date):
         self.__height = height
         self.__weight = weight
         self.__bmi = (float(weight)/(float(height)*float(height)))
         self.__level = ''
+        self.__date = date
+
+    def get_date(self):
+        return self.__date
 
     def get_height(self):
         return self.__height

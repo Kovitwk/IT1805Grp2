@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, validators, SubmitField, FloatField
+from wtforms import *
 
 
 class AddRecordForm(Form):

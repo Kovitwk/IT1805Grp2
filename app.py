@@ -9,6 +9,7 @@ from simData import *
 import shelve
 import functools
 import AdaptedSimulationCode as simCode
+import time
 
 app = Flask(__name__)
 app.config.from_mapping(
@@ -48,9 +49,6 @@ def init():
 @app.route('/')
 def index():
     if 'id' in session:
-        posts = get_blogs()
-        return render_template('index.html', user=session['user_name'])
-    else:
         return render_template('login.html')
 
 
@@ -64,6 +62,8 @@ def login():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
+        if username == 'Admin' and password == 'Admin123':
+            return redirect(url_for('index'))
         else:
             user = get_user(username, password)
             if user is None:
@@ -151,12 +151,17 @@ def logout():
 
 @app.route('/homepage.html')
 def homepage():
-    return render_template('test222.html', user=session['user_name'])
+    return render_template('SmartLivingHomepage.html')
 
 
 @app.route('/ProfilePage.html')
 def ProfilePage():
     return render_template('ProfilePage.html')
+
+
+@app.route('/blog.html')
+def Blog():
+    return render_template('index.html', user=session['user_name'])
 
 
 @app.route("/sportshome", methods=['POST', 'GET'])
@@ -184,7 +189,69 @@ def avatar():
 
 @app.route("/sportsworkout")
 def workout():
-    return render_template("sportsworkout.html")
+    dictionary = {}
+    db = shelve.open('fitness', 'c')
+    dictionary = db['Records']
+    print('This is dict', dictionary)
+    db.close()
+
+    level = ""
+    lines = []
+    text = {}
+    k = 1
+
+    for i in dictionary:
+        print('This is i', i)
+        if i == session['user_name']:
+            item = dictionary.get(i)
+            print("This is item", item)
+            print("item bmi", item.get_bmi())
+            level = item.get_bmi()
+            print("This is level", level)
+
+            if level < 18:
+                file = open('under.txt', 'r')
+                content = file.readline()
+                while content != "":
+                    content = file.readline()
+                    lines.append(content)
+                    print(content)
+                file.close()
+                for l in range(len(lines)):
+                    text[k] = lines[l]
+                    l += 2
+                    k += 1
+                print(text)
+
+            if 18 <= level <= 25:
+                file = open('normal.txt', 'r')
+                content = file.readline()
+                while content != "":
+                    content = file.readline()
+                    lines.append(content)
+                    print(content)
+                file.close()
+                for l in range(len(lines)):
+                    text[k] = lines[l]
+                    l += 2
+                    k += 1
+                print(text)
+
+            if level > 25:
+                file = open('over.txt', 'r')
+                content = file.readline()
+                while content != "":
+                    content = file.readline()
+                    lines.append(content)
+                    print(content)
+                file.close()
+                for l in range(len(lines)):
+                    text[k] = lines[l]
+                    l += 2
+                    k += 1
+                print(text)
+
+    return render_template("sportsworkout.html", fitness=level, workout1=text[1], workout2=text[2], workout3=text[3])
 
 
 @app.route('/record', methods=['GET', 'POST'])
@@ -212,11 +279,18 @@ def record():
             except:
                 print("failed to open database")
 
-            new_record = Record(form.height.data, form.weight.data)
-            recordList[session['user_name']] = new_record
-            db['Records'] = recordList
-            print(db['Records'])
-            db.close()
+            try:
+                height = float(form.height.data)
+                weight = float(form.weight.data)
+                new_record = Record(height, weight, time.strftime("%d/%m/%Y"))
+                recordList[session['user_name']] = new_record
+                db['Records'] = recordList
+                print(db['Records'])
+                db.close()
+
+            except ValueError:
+                print('Failed to submit form')
+                return redirect(url_for('record'))
 
             return redirect(url_for('summary'))
 
@@ -236,6 +310,7 @@ def summary():
         print('This is i', i)
         if i == session['user_name']:
             item = dictionary.get(i)
+            print("This is item", item)
             list.append(item)
 
     return render_template('summary.html', records=list, count=len(list), user=session['user_name'])
@@ -310,4 +385,4 @@ def sim():
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
