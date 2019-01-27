@@ -102,7 +102,7 @@ def login():
             else:
                 session['id'] = user.get_id()
                 session['user_name'] = user.get_username()
-                return redirect(url_for('/'))
+                return redirect(url_for('index'))
         flash(error)
     return render_template('login.html')
 
