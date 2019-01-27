@@ -1,5 +1,5 @@
 import shelve
-
+import uuid
 
 # Data for light bulbs and their wattage: 'https://www.noao.edu/education/QLTkit/ACTIVITY_Documents/Energy/TypesofLights.pdf'
 class lightbulb:
@@ -151,8 +151,12 @@ def tipsWtr():
         tiplist.append('saveSmartW')
     return tiplist
 
-
-
+# for revamped storage with user id
+def storeData(led, cfl, inc, toish, toitype, user):
+    with shelve.open('simStorage') as simStorage:
+        x = {'led': int(led), 'cfl': int(cfl), 'inc': int(inc),
+             'toiletNum': int(toish), 'toiletType': toitype}
+        simStorage[user] = x
 
 
 

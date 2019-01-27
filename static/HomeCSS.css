@@ -1,6 +1,6 @@
 body {
 	color: #000000;
-	font-family: Roboto, sans-serif;
+	font-family: Helvetica, sans-serif;
     background-color: #f7f7f7;
 }
 
@@ -26,6 +26,17 @@ body {
     background-color: black;
     transition: 0.3s
 }
+
+#container {
+    max-width: 1200px;
+    height: 1200px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 2px 2px 10px gray;
+    border: 2px solid black;
+    border-bottom: none;
+}
+
 #instructions {
     color: gray;
     text-align:center;
@@ -37,15 +48,28 @@ body {
 
 #user_input {
     text-align:center;
-    margin-top: 60px;
-    padding-left:240px; /* i swear on my life i cant get this div to center on the page any other way */
+    margin-top: 50px;
     font-weight: bold;
     display: flex;
 }
 
 #user_input form {
-    padding: 30px;
-    margin-top:50px;
+    padding-top: 50px;
+    margin: auto;
+}
+
+#user_output {
+    margin: 100px auto 0 auto;
+    font-size: 20px;
+    width: 500px;
+    padding-left: 100px;
+}
+
+#user_output p {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-left: 25px;
 }
 
 .number {
@@ -72,35 +96,25 @@ body {
     margin-left: 20px;
 }
 
-
-#container {
-    max-width: 1200px;
-    height: 1200px;
-    margin: auto;
-    background-color: white;
-    box-shadow: 2px 2px 10px gray;
-    border: 2px solid black;
-    border-bottom: none;
-}
-
 #tips {
     text-align: center;
     font-size: 20px;
     margin: 20px auto 20px auto;
-    max-width: 1000px;
-    overflow: auto;
-    display: flex;
+    width: auto;
+    padding: 0 50px 0 50px;
 }
 #tips h3 {
-    border-bottom:2px solid black;
     font-weight: bold;
+    text-decoration: underline;
 }
 
 #tips p {
-    font-size: 16px;
+    font-size: 17px;
     margin-bottom: 30px;
     background-color: ghostwhite;
+    text-align: center;
 }
+
 #results {
     text-align: center;
     font-size: 20px;

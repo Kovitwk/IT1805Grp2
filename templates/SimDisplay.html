@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/HomeCSS.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='../static/navbar.css'>
+
+    <meta charset="UTF-8">
+    <title>House Simulator</title>
+    <div id="navbar">
+		<div class="container1">
+			<p id="avatar">
+				<a href="ProfilePage.html"><img src="../static/avatar1.png" id="avatar1"></a>
+			</p>
+		</div>
+		<div class="container2">
+			<a href="/" id="brand">Company Logo</a>
+			<ul>
+				<li><a id="Azim" href="Sim.html">Smart Living</a></li>
+				<li><a id="Kovi" href="sportshome">Sports Living</a></li>
+				<li><a id="Syafiq" href="shop.html">Shops</a></li>
+				<li><a id="Kovi" href="summary">Your Health Stats</a></li>
+			</ul>
+		</div>
+    </div>
+</head>
+
+<body>
+<div id="container">
+    <br>
+    <div id="user_output">
+    <p>Data</p>
+    <ul class="display_info">
+        <li style="margin-bottom: 10px;"><span class="number">{{ led }}</span> LED light {% if led > 1 %}bulbs{% endif %} {% if led == 1 %}bulb{% endif %}</li>
+        <li style="margin-bottom: 10px;"><span class="number">{{ cfl }}</span> CFL light {% if cfl > 1 %}bulbs{% endif %} {% if cfl == 1 %}bulb{% endif %}</li>
+        <li style="margin-bottom: 10px;"><span class="number">{{ inc }}</span> Incandescent light {% if inc > 1 %}bulbs{% endif %} {% if inc == 1 %}bulb{% endif %}</li>
+        <li style="margin-bottom: 10px;"><span class="number">{{ toi }} {{ toitype }}</span> {% if toi > 1 %}toilets{% endif %} {% if toi == 1 %}toilet{% endif %}</li>
+    </ul>
+    <form method="POST">
+        <div style=" text-align: left; margin: 20px;"><input id='submit' type='submit' class="btn btn-primary" href="Sim.html" value="Redo"></div>
+    </form>
+    </div>
+    <div id="results">
+        <div class="tab">
+            <button class="tablinks" onclick="openTimeFrames(event, 'Daily')">Daily</button>
+            <button class="tablinks" id='defaultOpen' onclick="openTimeFrames(event, 'Monthly')">Monthly</button>
+            <button class="tablinks" onclick="openTimeFrames(event, 'Yearly')">Yearly</button>
+        </div>
+        <div id="Daily" class="tabcontent">
+            {% if dailyPrice %}<p>You spend <span class="number">${{ dailyPrice }}</span> on electricity and use <span class="number">{{ dailyWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if dailyCubmtrPrice %}<p>You spend <span class="number">${{ dailyCubmtrPrice }}</span> on water and use <span class="number">{{ dailyCubmtr }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+        <div id="Monthly" class="tabcontent">
+            {% if finalPrice %}<p>You spend <span class="number">${{ finalPrice }}</span> on electricity and use <span class="number">{{ finalWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if cubmtrPrice %}<p>You spend <span class="number">${{ cubmtrPrice }}</span> on water and use <span class="number">{{ cubmtrperday }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+        <div id="Yearly" class="tabcontent">
+            {% if yearlyPrice %}<p>You spend <span class="number">${{ yearlyPrice }}</span> on electricity and use <span class="number">{{ yearlyWatt }} kilowatts</span> of electricity.</p>{% endif %}
+            {% if yearlyCubmtrPrice %}<p>You spend <span class="number">${{ yearlyCubmtrPrice }}</span> on water and use <span class="number">{{ yearlyCubmtr }} cubic metres</span> of water.</p>{% endif %}
+        </div>
+    </div>
+    <div id="tips">
+        <div>
+            <h3>Tips for saving electricity</h3>
+            {% if replaceInc %}<p>Incandescent light bulbs use up more than 3x as much energy as the other light bulbs. Switch them out as soon as possible.</p>{% endif %}
+            {% if replaceCfl %}<p>CFL light bulbs are good but for maximum energy-saving, switch to LED ones.</p>{% endif %}
+            {% if saveSmartE %}<p>Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+        </div>
+        <div >
+            <h3>Tips for saving water</h3>
+            {% if replaceOldorConv %}<p>Replace your {{ toitype }} toilets for High-Efficiency ones.</p>{% endif %}
+            {% if saveSmartW %}<p>Congratulations! You have maximised the amount of energy you save in your house!</p>{% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Functions -->
+<script>
+function openTimeFrames(evt, timeframe) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(timeframe).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+</script>
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white"></p>
+    </div>
+</footer>
+</body>
+</html>
