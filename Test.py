@@ -122,9 +122,6 @@ def create():
 @app.route('/Sim.html', methods=['GET', 'POST'])
 def sim():
     calc = simData(request.form)
-    with shelve.open('simStorage') as simStorage:
-        if bool(simStorage) is True:
-            return redirect(url_for("simDisplay"))
     if request.method == 'POST':
             if calc.validate():
                 with shelve.open('simStorage') as simStorage:
@@ -184,7 +181,11 @@ def sim():
                 error = 'Only numbers lower than 100 are allowed.'
                 return render_template("Sim.html", error=error, calc=calc)
     else:
-        return render_template("Sim.html", calc=calc)
+        with shelve.open('simStorage') as simStorage:
+            if bool(simStorage) is True:
+                return redirect(url_for("simDisplay"))
+            else:
+                return render_template("Sim.html", calc=calc)
 
 
 @app.route('/SimDisplay.html', methods=['GET', 'POST'])
@@ -245,7 +246,6 @@ def simDisplay():
                                    dailyCubmtrPrice=dailyCubmtrPrice, dailyCubmtr=dailyCubmtr,
                                    yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
                                    dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt)
-
 
 
 if __name__ == "__main__":
