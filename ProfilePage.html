@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Profile Page{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="azim_data">
+
+</div>
+
+<div id="kovi_data">
+
+</div>
+
+<form method="post" action="/login">
+<p>user</p>
+<p>are you diabetic?</p>
+<select>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<input type="submit" value="data">
+</form>
+
+{% endblock %}
