@@ -160,11 +160,11 @@ def homepage():
 def ProfilePage():
     with shelve.open('simStorage') as simStorage:
         print(simStorage['ledNum'])
-        led = simStorage['ledNum']
-        cfl = simStorage['cflNum']
-        inc = simStorage['incNum']
-        toi = simStorage['toiletNum']
-        toitype = simStorage['toiletType']
+        led = simStorage[session['user_name']].led
+        cfl = simStorage[session['user_name']].cfl
+        inc = simStorage[session['user_name']].inc
+        toi = simStorage[session['user_name']].toi
+        toitype = simStorage[session['user_name']].toitype
     return render_template('ProfilePage.html', led=led, cfl=cfl, inc=inc, toi=toi, toitype=toitype)
 
 
@@ -330,67 +330,139 @@ def sim():
     calc = simData(request.form)
     if request.method == 'POST':
             if calc.validate():
+                simCode.storeData(calc.led.data, calc.cfl.data, calc.inc.data,
+                                  calc.toish.data, calc.toitype.data,
+                                  session['user_name'])
                 with shelve.open('simStorage') as simStorage:
-                    simStorage['ledNum'] = int(calc.led.data)
-                    simStorage['cflNum'] = int(calc.cfl.data)
-                    simStorage['incNum'] = int(calc.inc.data)
-                    simStorage['toiletNum'] = int(calc.toish.data)
-                    simStorage['toiletType'] = calc.toitype.data
-                    led = simStorage['ledNum']
-                    cfl = simStorage['cflNum']
-                    inc = simStorage['incNum']
-                    toitype = simStorage['toiletType']
-                finalWatt = simCode.calcWatt()
-                finalPrice = simCode.calcWattPrice()
-                dailyWatt = round(finalWatt / 30, 2)
-                dailyPrice = round(finalPrice / 30, 2)
-                yearlyWatt = round(finalWatt * 12, 2)
-                yearlyPrice = round(finalPrice * 12, 2)
-                cubmtrperday = simCode.calcCubmtr()
-                cubmtrPrice = simCode.calcCubmtrPrice()
-                dailyCubmtr = round(cubmtrperday / 30, 2)
-                dailyCubmtrPrice = round(cubmtrPrice / 30, 2)
-                yearlyCubmtr = round(cubmtrperday * 12, 2)
-                yearlyCubmtrPrice = round(cubmtrPrice * 12, 2)
-                tipElc = simCode.tipsElc()
-                tipWtr = simCode.tipsWtr()
-                global replaceInc
-                global replaceCfl
-                global saveSmartE
-                global saveSmartW
-                global replaceOldorConv
-                replaceInc = False
-                replaceCfl = False
-                saveSmartE = False
-                saveSmartW = False
-                replaceOldorConv = False
-                for i in tipElc:
-                    if i == 'replaceInc':
-                        replaceInc = True
-                    if i == 'replaceCfl':
-                        replaceCfl = True
-                    if i == 'saveSmartE':
-                        saveSmartE = True
-                for i in tipWtr:
-                    if i == 'replaceOldorConv':
-                        replaceOldorConv = True
-                    if i == 'saveSmartW':
-                        saveSmartW = True
-                openTab = True
-                return render_template("Sim.html", toitype=toitype, inc=inc, cfl=cfl, led=led,
-                                       replaceOldorConv=replaceOldorConv, saveSmartW=saveSmartW,
-                                       saveSmartE=saveSmartE, replaceCfl=replaceCfl, replaceInc=replaceInc,
-                                       openTab=openTab, cubmtrPrice=cubmtrPrice, cubmtrperday=cubmtrperday,
-                                       yearlyCubmtrPrice=yearlyCubmtrPrice, yearlyCubmtr=yearlyCubmtr,
-                                       dailyCubmtrPrice=dailyCubmtrPrice, dailyCubmtr=dailyCubmtr,
-                                       yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
-                                       dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt,
-                                       calc=calc)
+                        led = simStorage[session['user_name']].led
+                        cfl = simStorage[session['user_name']].cfl
+                        inc = simStorage[session['user_name']].inc
+                        toitype = simStorage[session['user_name']].toitype
+                        finalWatt = simCode.calcWatt(session['user_name'])
+                        finalPrice = simCode.calcWattPrice(session['user_name'])
+                        dailyWatt = round(finalWatt / 30, 2)
+                        dailyPrice = round(finalPrice / 30, 2)
+                        yearlyWatt = round(finalWatt * 2, 2)
+                        yearlyPrice = round(finalPrice * 12, 2)
+                        cubmtrperday = simCode.calcCubmtr(session['user_name'])
+                        cubmtrPrice = simCode.calcCubmtrPrice(session['user_name'])
+                        dailyCubmtr = round(cubmtrperday / 30, 2)
+                        dailyCubmtrPrice = round(cubmtrPrice / 30, 2)
+                        yearlyCubmtr = round(cubmtrperday * 12, 2)
+                        yearlyCubmtrPrice = round(cubmtrPrice * 12, 2)
+                        tipElc = simCode.tipsElc(session['user_name'])
+                        tipWtr = simCode.tipsWtr(session['user_name'])
+                        global replaceInc
+                        global replaceCfl
+                        global saveSmartE
+                        global saveSmartW
+                        global replaceOldorConv
+                        replaceInc = False
+                        replaceCfl = False
+                        saveSmartE = False
+                        saveSmartW = False
+                        replaceOldorConv = False
+                        for i in tipElc:
+                            if i == 'replaceInc':
+                                replaceInc = True
+                            if i == 'replaceCfl':
+                                replaceCfl = True
+                            if i == 'saveSmartE':
+                                saveSmartE = True
+                        for i in tipWtr:
+                            if i == 'replaceOldorConv':
+                                replaceOldorConv = True
+                            if i == 'saveSmartW':
+                                saveSmartW = True
+                        openTab = True
+                        for i in simStorage:
+                            if simStorage[i] == 'Guest':
+                                del simStorage['Guest']
+                            else:
+                                pass
+                        return render_template("Sim.html", toitype=toitype, inc=inc, cfl=cfl, led=led,
+                                               replaceOldorConv=replaceOldorConv, saveSmartW=saveSmartW,
+                                               saveSmartE=saveSmartE, replaceCfl=replaceCfl, replaceInc=replaceInc,
+                                               openTab=openTab, cubmtrPrice=cubmtrPrice, cubmtrperday=cubmtrperday,
+                                               yearlyCubmtrPrice=yearlyCubmtrPrice, yearlyCubmtr=yearlyCubmtr,
+                                               dailyCubmtrPrice=dailyCubmtrPrice, dailyCubmtr=dailyCubmtr,
+                                               yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
+                                               dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt,
+                                               calc=calc)
             else:
                 error = 'Only numbers lower than 100 are allowed.'
                 return render_template("Sim.html", error=error, calc=calc)
     else:
-        return render_template("Sim.html", calc=calc)
+        with shelve.open('simStorage') as simStorage:
+            if bool(session) is False:
+                session['user_name'] = 'Guest'
+                return render_template("Sim.html", calc=calc)
+            else:
+                if session['user_name'] in simStorage and session['user_name'] != 'Guest':
+                    return redirect(url_for("simDisplay"))
+                else:
+                    return render_template("Sim.html", calc=calc)
+
+
+@app.route('/SimDisplay.html', methods=['GET', 'POST'])
+def simDisplay():
+    if request.method == "POST":
+        with shelve.open('simStorage') as simStorage:
+            del simStorage[session['user_name']]
+            return redirect(url_for('sim'))
+    else:
+        with shelve.open('simStorage') as simStorage:
+            led = simStorage[session['user_name']].led
+            cfl = simStorage[session['user_name']].cfl
+            inc = simStorage[session['user_name']].inc
+            toi = simStorage[session['user_name']].toish
+            toitype = simStorage[session['user_name']].toitype
+            finalWatt = simCode.calcWatt(session['user_name'])
+            finalPrice = simCode.calcWattPrice(session['user_name'])
+            dailyWatt = round(finalWatt / 30, 2)
+            dailyPrice = round(finalPrice / 30, 2)
+            yearlyWatt = round(finalWatt * 12, 2)
+            yearlyPrice = round(finalPrice * 12, 2)
+            cubmtrperday = simCode.calcCubmtr(session['user_name'])
+            cubmtrPrice = simCode.calcCubmtrPrice(session['user_name'])
+            dailyCubmtr = round(cubmtrperday / 30, 2)
+            dailyCubmtrPrice = round(cubmtrPrice / 30, 2)
+            yearlyCubmtr = round(cubmtrperday * 12, 2)
+            yearlyCubmtrPrice = round(cubmtrPrice * 12, 2)
+            tipElc = simCode.tipsElc(session['user_name'])
+            tipWtr = simCode.tipsWtr(session['user_name'])
+            global replaceInc
+            global replaceCfl
+            global saveSmartE
+            global saveSmartW
+            global replaceOldorConv
+            replaceInc = False
+            replaceCfl = False
+            saveSmartE = False
+            saveSmartW = False
+            replaceOldorConv = False
+            for i in tipElc:
+                if i == 'replaceInc':
+                    replaceInc = True
+                if i == 'replaceCfl':
+                    replaceCfl = True
+                if i == 'saveSmartE':
+                    saveSmartE = True
+            for i in tipWtr:
+                if i == 'replaceOldorConv':
+                    replaceOldorConv = True
+                if i == 'saveSmartW':
+                    saveSmartW = True
+            openTab = True
+            return render_template("SimDisplay.html",toi=toi, toitype=toitype, inc=inc, cfl=cfl, led=led,
+                                   replaceOldorConv=replaceOldorConv, saveSmartW=saveSmartW, saveSmartE=saveSmartE,
+                                   replaceCfl=replaceCfl, replaceInc=replaceInc, openTab=openTab,
+                                   cubmtrPrice=cubmtrPrice, cubmtrperday=cubmtrperday,
+                                   yearlyCubmtrPrice=yearlyCubmtrPrice, yearlyCubmtr=yearlyCubmtr,
+                                   dailyCubmtrPrice=dailyCubmtrPrice, dailyCubmtr=dailyCubmtr,
+                                   yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
+                                   dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt)
+
 
 @app.route("/upload", methods=["POST"])
 def upload():
