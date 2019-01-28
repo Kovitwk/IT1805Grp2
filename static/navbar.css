@@ -81,3 +81,8 @@ a:visited {
 	max-height: 25px;
 	max-width: 25px;
 }
+
+#logo {
+	max-width: 43px;
+	padding-bottom: 10px;
+}
