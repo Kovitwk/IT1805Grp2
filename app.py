@@ -394,6 +394,11 @@ def sim():
                             if i == 'saveSmartW':
                                 saveSmartW = True
                         openTab = True
+                        for i in simStorage:
+                            if simStorage[i] == 'Guest':
+                                del simStorage['Guest']
+                            else:
+                                pass
                         return render_template("Sim.html", toitype=toitype, inc=inc, cfl=cfl, led=led,
                                                replaceOldorConv=replaceOldorConv, saveSmartW=saveSmartW,
                                                saveSmartE=saveSmartE, replaceCfl=replaceCfl, replaceInc=replaceInc,
@@ -410,7 +415,6 @@ def sim():
         with shelve.open('simStorage') as simStorage:
             if bool(session) is False:
                 session['user_name'] = 'Guest'  # Cher look i got guest login some more. Don't need acc to save data. Smart right.
-                del simStorage[session['user_name']]
                 return render_template("Sim.html", calc=calc)
             else:
                 if session['user_name'] in simStorage:
