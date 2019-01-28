@@ -58,11 +58,20 @@ class hef(toilet):
         super().__init__('HEF', 4.5, number)
 
 
-def calcWatt():
+class User:
+    def __init__(self, led, cfl, inc, toish, toitype):
+        self.led = led
+        self.cfl = cfl
+        self.inc = inc
+        self. toish = toish
+        self. toitype = toitype
+
+
+def calcWatt(user):
     with shelve.open('simStorage') as simStorage:
-        ledEx = led(simStorage['ledNum'])
-        cflEx = cfl(simStorage['cflNum'])
-        incEx = incandescent(simStorage['incNum'])
+        ledEx = led(simStorage[user].led)
+        cflEx = cfl(simStorage[user].cfl)
+        incEx = incandescent(simStorage[user].inc)
 
         hrs = 8  # Assuming 8 hours used for light bulb a day
 
@@ -78,11 +87,11 @@ def calcWatt():
         return round(finalWatt, 3)
 
 
-def calcWattPrice():
+def calcWattPrice(user):
     with shelve.open('simStorage') as simStorage:
-        ledEx = led(simStorage['ledNum'])
-        cflEx = cfl(simStorage['cflNum'])
-        incEx = incandescent(simStorage['incNum'])
+        ledEx = led(simStorage[user].led)
+        cflEx = cfl(simStorage[user].cfl)
+        incEx = incandescent(simStorage[user].inc)
 
         hrs = 8  # Assuming 8 hours used for light bulb a day
         cost = 0.30  # $ per kWh. Data received from 'http://energyusecalculator.com/global_electricity_prices.htm'
@@ -99,10 +108,10 @@ def calcWattPrice():
         return round(finalPrice, 2)
 
 
-def calcCubmtr():
+def calcCubmtr(user):
     with shelve.open('simStorage') as simStorage:
-        toiNum = simStorage['toiletNum']
-        toitype = simStorage['toiletType']
+        toiNum = simStorage[user].toish
+        toitype = simStorage[user].toitype
         if toitype == 'Old':
             toilet = old(toiNum)
             lpd = toilet.get_number() * toilet.get_lpf() * 24 * 6 * 30 / 1000  # 6 is the average number of times a person flushes a day
@@ -117,8 +126,8 @@ def calcCubmtr():
             return lpd
 
 
-def calcCubmtrPrice():
-    cubmtr = calcCubmtr()
+def calcCubmtrPrice(user):
+    cubmtr = calcCubmtr(user)
     if cubmtr > 40:
         price = 3.69
         return price
@@ -127,11 +136,11 @@ def calcCubmtrPrice():
         return price
 
 
-def tipsElc():
+def tipsElc(user):
     tiplist = []
     with shelve.open('simStorage') as simStorage:
-        cfl = simStorage['cflNum']
-        inc = simStorage['incNum']
+        cfl = simStorage[user].cfl
+        inc = simStorage[user].inc
     if inc > 0:
         tiplist.append('replaceInc')
     if cfl > 0:
@@ -141,23 +150,22 @@ def tipsElc():
     return tiplist
 
 
-def tipsWtr():
+def tipsWtr(user):
     tiplist = []
     with shelve.open('simStorage') as simStorage:
-        toitype = simStorage['toiletType']
+        toitype = simStorage[user].toitype
     if toitype == 'Old' or toitype == 'Conventional':
         tiplist.append('replaceOldorConv')
     else:
         tiplist.append('saveSmartW')
     return tiplist
 
+
 # for revamped storage with user id
 def storeData(led, cfl, inc, toish, toitype, user):
+    x = User(int(led), int(cfl), int(inc), int(toish), toitype)
     with shelve.open('simStorage') as simStorage:
-        x = {'led': int(led), 'cfl': int(cfl), 'inc': int(inc),
-             'toiletNum': int(toish), 'toiletType': toitype}
         simStorage[user] = x
-
 
 
 
