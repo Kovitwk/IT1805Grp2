@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Profile Page{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+<div id="azim_data">
+    <table>
+        <tr>
+            <td><span class="number">{{ led }}</span> LED light {% if led > 1 %}bulbs{% endif %} {% if led == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ cfl }}</span> CFL light {% if cfl > 1 %}bulbs{% endif %} {% if cfl == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ inc }}</span> Incandescent light {% if inc > 1 %}bulbs{% endif %} {% if inc == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ toi }} {{ toitype }}</span> {% if toi > 1 %}toilets{% endif %} {% if toi == 1 %}toilet{% endif %}</td>
+        </tr>
+    </table>
+
+</div>
+
+<div id="kovi_data">
+<div id="content">
+    <h1>These are your health statistics, <span>{{ session['user_name'] }}</span></h1>
+    <table>
+        <tr>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>BMI</th>
+            <th>Fitness Level</th>
+            <th>Date</th>
+        </tr>
+        {% for item in records %}
+        <tr>
+            <td>{{ item.get_height() }}</td>
+            <td>{{ item.get_weight() }}</td>
+            <td>{{ item.get_bmi() }}</td>
+            <td>{{ item.get_fitness_level() }}</td>
+            <td>{{ item.get_date() }}</td>
+            {% endfor %}
+    </table>
+</div>
+</div>
+<form method="post" action="/login">
+<p>user</p>
+<p>are you diabetic?</p>
+<select>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+</select>
+<input type="submit" value="data">
+</form>
+{% endblock %}
