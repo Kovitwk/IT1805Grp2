@@ -346,7 +346,6 @@ def summary():
 
 @app.route('/Sim.html', methods=['GET', 'POST'])
 def sim():
-    print(session['user_name'])
     calc = simData(request.form)
     if request.method == 'POST':
             if calc.validate():
