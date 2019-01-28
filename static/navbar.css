@@ -65,8 +65,10 @@ a:visited {
 }
 
 #navbar li a:hover {
-    background-color: #111;
+    	background-color: #111;
 	color: white;
+	text-decoration: none;
+
 }
 
 #avatar {
