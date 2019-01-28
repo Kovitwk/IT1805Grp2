@@ -6,15 +6,14 @@ from Convert import Convert
 from Converter import *
 from AddRecordForm import *
 from simData import *
+from dietRecipe import *
 import shelve
 import functools
 import AdaptedSimulationCode as simCode
 import time
 
 app = Flask(__name__)
-app.config.from_mapping(
-    SECRET_KEY='dev'
-)
+app.config.from_mapping(SECRET_KEY='dev')
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
 app.secret_key = 'Test123456543$2313fd$@#@%^21dz'
@@ -49,7 +48,42 @@ def init():
 @app.route('/')
 def index():
     if 'id' in session:
+        posts = get_blogs()
+        return render_template('SmartLivingHomepage.html', user=session['user_name'])
+    else:
         return render_template('login.html')
+
+
+@app.route('/diet')
+def diet():
+    posts = get_recipes()
+    return render_template('diet.html', posts=posts)
+
+
+@app.route('/dietUpdate', methods=('GET', 'POST'))
+def update():
+    recipeBlock = createRecipe(request.form)
+    if request.method == 'POST':
+        if request.form['form_submit'] == 'delete':
+            delete_recipe()
+            return redirect(url_for('diet'))
+    else:
+        delete = True
+        return render_template('dietUpdate.html', recipeBlock=recipeBlock, delete=delete)
+
+
+@app.route('/dietCreate', methods=('GET', 'POST'))
+def create():
+    recipeBlock = createRecipe(request.form)
+    if request.method == "POST":
+        if recipeBlock.validate():
+            create_recipe(recipeBlock.title.data, recipeBlock.body.data, recipeBlock.image.data)
+            return redirect(url_for('diet'))
+        else:
+            print('Not valid')
+            return redirect(url_for('diet'))
+    else:
+        return render_template('dietCreate.html', recipeBlock=recipeBlock)
 
 
 @app.route('/login',  methods=('GET', 'POST'))
@@ -71,7 +105,7 @@ def login():
             else:
                 session['id'] = user.get_id()
                 session['user_name'] = user.get_username()
-                return redirect(url_for('homepage'))
+                return redirect(url_for('index'))
         flash(error)
     return render_template('login.html')
 
@@ -93,7 +127,7 @@ def register():
         flash(error)
     return render_template('register.html')
 
-
+'''
 @app.route('/<string:id>/update', methods=('GET', 'POST'))
 def update(id):
     post = get_blog(id)
@@ -141,7 +175,7 @@ def create():
             return redirect(url_for('index'))
 
     return render_template('create.html')
-
+'''
 
 @app.route('/logout')
 def logout():
@@ -151,17 +185,12 @@ def logout():
 
 @app.route('/homepage.html')
 def homepage():
-    return render_template('SmartLivingHomepage.html')
+    return render_template('test222.html', user=session['user_name'])
 
 
 @app.route('/ProfilePage.html')
 def ProfilePage():
     return render_template('ProfilePage.html')
-
-
-@app.route('/blog.html')
-def Blog():
-    return render_template('index.html', user=session['user_name'])
 
 
 @app.route("/sportshome", methods=['POST', 'GET'])
@@ -384,5 +413,65 @@ def sim():
         return render_template("Sim.html", calc=calc)
 
 
+@app.route('/SimDisplay.html', methods=['GET', 'POST'])
+def simDisplay():
+    if request.method == "POST":
+        with shelve.open('simStorage') as simStorage:
+            simStorage.clear()
+        return redirect(url_for('sim'))
+    else:
+        with shelve.open('simStorage') as simStorage:
+            led = simStorage['ledNum']
+            cfl = simStorage['cflNum']
+            inc = simStorage['incNum']
+            toi = simStorage['toiletNum']
+            toitype = simStorage['toiletType']
+            finalWatt = simCode.calcWatt()
+            finalPrice = simCode.calcWattPrice()
+            dailyWatt = round(finalWatt / 30, 2)
+            dailyPrice = round(finalPrice / 30, 2)
+            yearlyWatt = round(finalWatt * 12, 2)
+            yearlyPrice = round(finalPrice * 12, 2)
+            cubmtrperday = simCode.calcCubmtr()
+            cubmtrPrice = simCode.calcCubmtrPrice()
+            dailyCubmtr = round(cubmtrperday / 30, 2)
+            dailyCubmtrPrice = round(cubmtrPrice / 30, 2)
+            yearlyCubmtr = round(cubmtrperday * 12, 2)
+            yearlyCubmtrPrice = round(cubmtrPrice * 12, 2)
+            tipElc = simCode.tipsElc()
+            tipWtr = simCode.tipsWtr()
+            global replaceInc
+            global replaceCfl
+            global saveSmartE
+            global saveSmartW
+            global replaceOldorConv
+            replaceInc = False
+            replaceCfl = False
+            saveSmartE = False
+            saveSmartW = False
+            replaceOldorConv = False
+            for i in tipElc:
+                if i == 'replaceInc':
+                    replaceInc = True
+                if i == 'replaceCfl':
+                    replaceCfl = True
+                if i == 'saveSmartE':
+                    saveSmartE = True
+            for i in tipWtr:
+                if i == 'replaceOldorConv':
+                    replaceOldorConv = True
+                if i == 'saveSmartW':
+                    saveSmartW = True
+            openTab = True
+            return render_template("SimDisplay.html",toi=toi, toitype=toitype, inc=inc, cfl=cfl, led=led,
+                                   replaceOldorConv=replaceOldorConv, saveSmartW=saveSmartW, saveSmartE=saveSmartE,
+                                   replaceCfl=replaceCfl, replaceInc=replaceInc, openTab=openTab,
+                                   cubmtrPrice=cubmtrPrice, cubmtrperday=cubmtrperday,
+                                   yearlyCubmtrPrice=yearlyCubmtrPrice, yearlyCubmtr=yearlyCubmtr,
+                                   dailyCubmtrPrice=dailyCubmtrPrice, dailyCubmtr=dailyCubmtr,
+                                   yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
+                                   dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt)
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug = True)
