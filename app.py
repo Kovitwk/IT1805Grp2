@@ -13,16 +13,18 @@ import AdaptedSimulationCode as simCode
 import time
 
 app = Flask(__name__)
-app.config.from_mapping(SECRET_KEY='dev')
+app.config.from_mapping(
+    SECRET_KEY='dev'
+)
+
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
 app.secret_key = 'Test123456543$2313fd$@#@%^21dz'
-
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @babel.localeselector
 def locale_selector():
     return 'en'
-
 
 def login_required(view):
     @functools.wraps(view)
@@ -51,38 +53,6 @@ def index():
         return render_template('SmartLivingHomepage.html', user=session['user_name'])
     else:
         return render_template('login.html')
-
-
-@app.route('/diet')
-def diet():
-    posts = get_recipes()
-    return render_template('diet.html', posts=posts)
-
-
-@app.route('/dietUpdate', methods=('GET', 'POST'))
-def update():
-    recipeBlock = createRecipe(request.form)
-    if request.method == 'POST':
-        if request.form['form_submit'] == 'delete':
-            delete_recipe()
-            return redirect(url_for('diet'))
-    else:
-        delete = True
-        return render_template('dietUpdate.html', recipeBlock=recipeBlock, delete=delete)
-
-
-@app.route('/dietCreate', methods=('GET', 'POST'))
-def create():
-    recipeBlock = createRecipe(request.form)
-    if request.method == "POST":
-        if recipeBlock.validate():
-            create_recipe(recipeBlock.title.data, recipeBlock.body.data, recipeBlock.image.data)
-            return redirect(url_for('diet'))
-        else:
-            print('Not valid')
-            return redirect(url_for('diet'))
-    else:
-        return render_template('dietCreate.html', recipeBlock=recipeBlock)
 
 
 @app.route('/login',  methods=('GET', 'POST'))
@@ -482,6 +452,113 @@ def simDisplay():
                                    yearlyPrice=yearlyPrice, yearlyWatt=yearlyWatt, dailyPrice=dailyPrice,
                                    dailyWatt=dailyWatt, finalPrice=finalPrice, finalWatt=finalWatt)
 
+@app.route("/upload", methods=["POST"])
+def upload():
+    target = os.path.join(APP_ROOT, 'images/')
+    print(target)
+    if not os.path.isdir(target):
+            os.mkdir(target)
+    else:
+        print("Couldn't create upload directory: {}".format(target))
+    print(request.files.getlist("file"))
+    for upload in request.files.getlist("file"):
+        print(upload)
+        print("{} is the file name".format(upload.filename))
+        filename = upload.filename
+        destination = "/".join([target, filename])
+        print ("Accept incoming file:", filename)
+        print ("Save it to:", destination)
+        upload.save(destination)
+
+
+    return render_template("gallery.html", image_name=filename)
+
+@app.route('/upload/<filename>')
+def send_image(filename):
+    return send_from_directory("images", filename)
+
+@app.route('/complete')
+def complete():
+    return render_template("complete.html")
+@app.route('/gallery')
+def get_gallery():
+    image_names = os.listdir('./images')
+    print(image_names)
+
+    return render_template("gallery.html", image_names=image_names)
+
+@app.route('/gallery/<filename>')
+def delete_image(filename):
+        try:
+            os.remove(os.path.join('images',filename))
+        finally:
+            if os.path.exists(filename):
+                return send_from_directory("./images",filename = filename)
+            else:
+                return render_template("complete.html")
+
+@app.route("/diet")
+def diet_tips():
+    return render_template("diet.html")
+
+@app.route("/dietCreate")
+def diet_create():
+    return render_template("dietCreate.html")
+
+@app.route("/dietUpdate")
+def diet_update():
+    return render_template("dietUpdate.html")
+
+@app.route('/<string:id>/update', methods=('GET', 'POST'))
+def update_diet(id):
+    post = get_blog(id)
+
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            post.title = title
+            post.body = body
+            update_blog(post)
+            return redirect(url_for('index'))
+
+    return render_template('diet.html', post=post)
+
+@app.route('/<string:id>/delete', methods=('GET', 'POST'))
+def delete_diet(id):
+    delete_blog(id)
+    posts = get_blogs()
+    return render_template('diet.html', posts=posts)
+
+@app.route('/create', methods=('GET', 'POST'))
+def create_diet2():
+    recipeBlock = create_recipe(request.form)
+
+    if request.method == "POST":
+        if recipeBlock.validate():
+            create_recipe(recipeBlock.title.data, recipeBlock.body.data, recipeBlock.image.data)
+            return redirect(url_for('diet'))
+        else:
+            print('Not valid')
+            return redirect(url_for('diet'))
+    else:
+        return render_template('dietCreate.html', recipeBlock=recipeBlock)
+
+@app.route('/AdminPage')
+def admin():
+    with shelve.open('user') as user:
+        print(user['ledNum'])
+        ids = user['id']
+        password = user['password']
+        email = user['email']
+    return render_template('AdminPage.html',ids = ids,password = password , email = email)
 
 
 if __name__ == '__main__':
