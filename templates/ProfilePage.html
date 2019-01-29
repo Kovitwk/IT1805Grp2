@@ -1,32 +1,97 @@
-{% extends 'base.html' %}
+<!doctype html>
+<head>
+<title>Register</title>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
-  {% if session['id'] %}
-    <a class="action" href="{{ url_for('create') }}">New</a>
-  {% endif %}
-{% endblock %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}" type="text/css">
 
-{% block content %}
-<form method="post" action="/login">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-<p>user</p>
-<p>are you diabetic?</p>
-<select>
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
-</select>
-<p>How big is your apartment</p>
-<select>
-    <option value="1234">1234 sq feet </option>
-    <option value="5678">5678 sq feet </option>
-</select>
-</br>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300i" rel="stylesheet">
+</head>
 
-<button value="submit">Update Data</button>
-</form>
-{% endblock %}
+<body>
+	<div id="navbar">
+		<div class="container1">
+              {% if session['id'] %}
+			<p id="avatar">
+				<a id="Joshua" href="ProfilePage.html"><img src="static/avatar1.png" id="avatar1"></a>
+			</p>
+                {% else %}
+             <p id="avatar">
+				<a id="Joshua" href="login.html"><img src="static/avatar1.png" id="avatar1"></a>
+			</p>
+			{% endif %}
+		</div>
+		<div class="container2">
+			<a href="ProfilePage.html" id="brand">Our Company Logo here</a>
+			<ul>
+				<li><a id="Azim" href="Sim.html">Smart Living</a></li>
+				<li><a id="Kovi" href="sportshome">Sports Living</a></li>
+				<li><a id="Syafiq" href="shop.html">Shops</a></li>
+                <li><a id="Kovi1" href="summary">Sports Health</a></li>
+			</ul>
+          <ul>
+            {% if session['id'] %}
+              <li><span>{{ session['user_name'] }}</span>
+              <li><a href="{{ url_for('logout') }}">Log Out</a>
+            {% else %}
+              <li><a href="{{ url_for('register') }}">Register</a>
+              <li><a href="{{ url_for('login') }}">Log In</a>
+            {% endif %}
+          </ul>
+		</div>
+	</div>
+
+
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+    <div class="data">
+<div id="azim_data">
+    {% if led %}
+    <table>
+        <tr>
+            <td><span class="number">{{ led }}</span> LED light {% if led > 1 %}bulbs{% endif %} {% if led == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ cfl }}</span> CFL light {% if cfl > 1 %}bulbs{% endif %} {% if cfl == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ inc }}</span> Incandescent light {% if inc > 1 %}bulbs{% endif %} {% if inc == 1 %}bulb{% endif %}</td>
+            <td><span class="number">{{ toi }} {{ toitype }}</span> {% if toi > 1 %}toilets{% endif %} {% if toi == 1 %}toilet{% endif %}</td>
+        </tr>
+    </table>
+    {% endif %}
+    <p>You have no data for Smart Living</p>
+</div>
+
+<div id="kovi_data">
+<div id="content">
+    <h1>These are your health statistics, <span>{{ session['user_name'] }}</span></h1>
+    <table>
+        <tr>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>BMI</th>
+            <th>Fitness Level</th>
+            <th>Date</th>
+        </tr>
+        {% for item in records %}
+        <tr>
+            <td>{{ item.get_height() }}</td>
+            <td>{{ item.get_weight() }}</td>
+            <td>{{ item.get_bmi() }}</td>
+            <td>{{ item.get_fitness_level() }}</td>
+            <td>{{ item.get_date() }}</td>
+            {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+</body>
